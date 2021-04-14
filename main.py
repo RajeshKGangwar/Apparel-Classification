@@ -1,5 +1,5 @@
-from wsgiref import simple_server
-from flask import Flask, render_template,request, jsonify, request, Response
+from wsgiref import simple_server #web server gateway interface
+from flask import Flask, render_template,request, Response
 import os
 from flask_cors import CORS, cross_origin
 from Image_preprocessing.Decoding import DecodeImage
@@ -39,11 +39,18 @@ def predict():
         #print(e)
         result = "Invalid input"
     #print("this is my result", result)
-
-    output = list(result.keys())[list(result.values()).index(1)]
-    print("this is the output", output)
+    output = get_key(1,result)
 
     return output
+
+def get_key(val,dic):
+
+    for key, value in dic.items():
+        if val == value:
+            return key
+
+    return "Please Provide best possible image!!! eg: Model Predicts only single class at a time!!"
+
 
 
 
